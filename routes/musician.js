@@ -5,9 +5,19 @@ const jsonParser = bodyParser.json();
 const schema = require('../store/schema');
 
 // healthcheck
-router.get('/health', (req, res) => {
-  res.status('200').send("Status: ok!");
-});
+//router.get('/health', (req, res) => {
+ // res.status('200').send("Status: ok!");
+//});
+@CrossOrigin(value = "*")
+@RequestMapping(value = "/health",method = RequestMethod.GET)
+public ResponseEntity<?> health() throws Exception {
+    try {
+        return ResponseEntity.status(200).body("Ok");
+    } catch (Exception e) {
+        return (ResponseEntity<?>) ResponseEntity.internalServerError().body(e.getMessage());
+    }
+}
+
 
 // retrieve all musicians from data store
 router.get('/all', (req, res) => {
